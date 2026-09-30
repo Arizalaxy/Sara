@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <title>Manuscritos del Bósforo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0b0b0d;
+            color: #e5e5e5;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, rgba(11, 11, 13, 1) 70%);
+            z-index: -1;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 680px;
+            padding: 40px;
+            background: rgba(20, 20, 25, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            text-align: center;
+            position: relative;
+        }
+
+        .container::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            border: 1px dashed rgba(212, 175, 55, 0.15);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .header-title {
+            font-family: 'Cinzel', serif;
+            color: #d4af37;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .letter-box {
+            font-size: 1.12rem;
+            line-height: 1.8;
+            color: #dcdcdc;
+            min-height: 180px;
+            text-align: left;
+            padding: 10px;
+            white-space: pre-line;
+            font-weight: 300;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2rem;
+            background-color: #d4af37;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .signature {
+            font-family: 'Great Vibes', cursive;
+            color: #d4af37;
+            font-size: 1.8rem;
+            margin-top: 25px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .signature.visible {
+            opacity: 1;
+        }
+
+        .actions-box {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .actions-box.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .btn-custom {
+            background: transparent;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            padding: 10px 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #d4af37;
+            color: #0b0b0d;
+        }
+
+        .counter {
+            font-size: 0.8rem;
+            color: rgba(212, 175, 55, 0.6);
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-title">✦ Manuscrito del Bósforo ✦</div>
+        <div class="counter" id="counter-text">Carta 1 de 4</div>
+        <div class="letter-box" id="text-container"></div><span class="cursor" id="cursor"></span>
+        <div class="signature" id="signature">Creado con código y un toque de misterio</div>
+        
+        <div class="actions-box" id="actions-box">
+            <button class="btn-custom" onclick="siguienteCarta()">Siguiente Manuscrito </button>
+            
+        </div>
+    </div>
+
+    <script>
+        // Banco de cartas (puedes agregar, quitar o modificar las que quieras)
+        const cartas = [
+            `Dicen que las mejores historias del Bósforo siempre empiezan con una coincidencia inesperada y un toque de misterio...\n\nNo sé si esto calificaría para un drama de 3 horas con música de violines de fondo, pero lo que sí sé es que hay detalles en la vida que merecen una atención especial.\n\nComo sé que te fascinan las grandes producciones, decidí programar este pequeño rincón digital solo para recordarte que las mejores tramas siempre arrancan con una buena charla.`,
+            
+            `Capítulo especial: Del otro lado del estrecho.\n\nHay algo fascinante en cómo las series turcas logran que un simple café o una mirada lo digan todo sin necesidad de guion.\n\nPensando en eso, me di cuenta de que conversar contigo tiene un poco de esa misma magia: siempre te deja con ganas de ver el siguiente capítulo.`,
+            
+            `Nota al margen en el libreto:\n\nSi la vida fuera una telenovela otomana, los giros de trama serían constantes y llenos de suspenso... pero la verdad es que lo más predecible (y agradable) de mis días es cuando coincidimos.\n\nUn pequeño saludo digital para alguien que destaca en cualquier escenario.`,
+            
+            `Escena secreta:\n\nDicen que en Estambul las gaviotas y el atardecer sobre el mar crean el escenario perfecto para cualquier historia.\n\nNo tengo el Bósforo aquí al lado, pero sí tenía ganas de armar algo original y tecnológico solo para sacarte una sonrisa hoy.`
+        ];
+
+        let indiceActual = 0;
+        let mensaje = cartas[indiceActual];
+        
+        const textContainer = document.getElementById('text-container');
+        const cursor = document.getElementById('cursor');
+        const signature = document.getElementById('signature');
+        const actionsBox = document.getElementById('actions-box');
+        const counterText = document.getElementById('counter-text');
+        
+        let i = 0;
+        const velocidad = 35; // Velocidad de escritura en milisegundos
+        let timeoutId = null;
+
+        function escribirTexto() {
+            if (i < mensaje.length) {
+                textContainer.innerHTML += mensaje.charAt(i);
+                i++;
+                timeoutId = setTimeout(escribirTexto, velocidad);
+            } else {
+                cursor.style.display = 'none';
+                signature.classList.add('visible');
+                actionsBox.classList.add('visible');
+            }
+        }
+
+        function iniciarEscritura(nuevoMensaje, numeroCarta) {
+            // Limpiar estados anteriores
+            clearTimeout(timeoutId);
+            textContainer.innerHTML = "";
+            i = 0;
+            mensaje = nuevoMensaje;
+            cursor.style.display = 'inline-block';
+            signature.classList.remove('visible');
+            actionsBox.classList.remove('visible');
+            counterText.innerText = `Manuscrito ${numeroCarta} de ${cartas.length}`;
+            
+            escribirTexto();
+        }
+
+        function siguienteCarta() {
+            indiceActual = (indiceActual + 1) % cartas.length;
+            iniciarEscritura(cartas[indiceActual], indiceActual + 1);
+        }
+
+        function cartaAleatoria() {
+            let nuevoIndice;
+            do {
+                nuevoIndice = Math.floor(Math.random() * cartas.length);
+            } while (nuevoIndice === indiceActual && cartas.length > 1);
+            
+            indiceActual = nuevoIndice;
+            iniciarEscritura(cartas[indiceActual], indiceActual + 1);
+        }
+
+        // Inicia al cargar la página con la primera carta
+        window.onload = () => {
+            setTimeout(() => {
+                iniciarEscritura(cartas[0], 1);
+            }, 500);
+        };
+    </script>
+</body>
+</html>
